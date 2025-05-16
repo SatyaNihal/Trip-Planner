@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Planner</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            display: block;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .results {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .weather-card, .currency-card {
+            background-color: #f9f9f9;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .weather-card h3, .currency-card h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .forecast-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            padding: 10px 0;
+        }
+        .forecast-day {
+            min-width: 120px;
+            background: white;
+            border-radius: 6px;
+            padding: 10px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .forecast-date {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .hidden {
+            display: none;
+        }
+        .currency-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            font-style: italic;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Trip Planner</h1>
+        
+        <div class="form-group">
+            <label for="city">Destination City (Enter at least three alphabets):</label>
+            <input type="text" id="city" placeholder="e.g., Paris, Tokyo, New York">
+        </div>
+
+        <div class="form-group">
+            <label for="base-currency">Your Currency:</label>
+            <select id="base-currency">
+                <option value="USD" selected>US Dollar (USD)</option>
+                <option value="EUR">Euro (EUR)</option>
+                <option value="GBP">British Pound (GBP)</option>
+                <option value="CAD">Canadian Dollar (CAD)</option>
+                <option value="JPY">Japanese Yen (JPY)</option>
+                <option value="AUD">Australian Dollar (AUD)</option>
+                <option value="CHF">Swiss Franc (CHF)</option>
+            </select>
+        </div>
+        
+        <button id="plan-trip-btn">Plan My Trip</button>
+        
+        <div id="loading" class="loading hidden">
+            Loading your travel information...
+        </div>
+        
+        <div id="results" class="results hidden">
+            <div class="weather-card">
+                <h3>Weather Forecast for <span id="weather-city"></span></h3>
+                <div id="forecast-container" class="forecast-container">
+                    <!-- Weather forecast days will be inserted here -->
+                </div>
+            </div>
+            
+            <div class="currency-card">
+                <h3>Currency Information</h3>
+                <p>Exchange rate from <span id="from-currency">USD</span> to local currency (<span id="to-currency"></span>):</p>
+                <div class="currency-info">
+                    <p>1 <span id="base-currency-code">USD</span> = <span id="exchange-rate"></span> <span id="local-currency-code"></span></p>
+                    <p id="currency-updated"></p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="amount">Amount to Convert:</label>
+                    <input type="number" id="amount" value="100" min="1">
+                </div>
+                
+                <button id="convert-btn">Convert Currency</button>
+                <p id="conversion-result"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
